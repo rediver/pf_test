@@ -1,6 +1,7 @@
 module.exports = async function (browser, { inputParameters, secretParameters }) {
   console.log(inputParameters, secretParameters);
 
+
   describe('test2', function() {
     this.timeout(30000)
     let driver
@@ -125,5 +126,11 @@ module.exports = async function (browser, { inputParameters, secretParameters })
       await driver.switchTo().window(vars["undefined"])
     })
   })
+
+
+
+
+
+
 
 };
