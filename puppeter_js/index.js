@@ -20,8 +20,7 @@ const puppeteer = require('puppeteer');
   await navigationPromise
 
   await navigationPromise
-  and their patterns if we want to assume .maven building is only proper standard, use case
-￼
+
 
   await navigationPromise
 
