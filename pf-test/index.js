@@ -1,6 +1,6 @@
 module.exports = async function (browser, inputParameters) {
 
-(async () => {
+const main = async () => {
 
   const page = await browser.newPage()
   await page.goto('https://staging.powerfarm.ai/signin');
@@ -36,5 +36,8 @@ module.exports = async function (browser, inputParameters) {
   await page.screenshot({path: process.env.SCREENSHOTS_PATH + '/' + 'schedule.png'}) 
 
 
-})()
+}
+
+await main()
+
 };
