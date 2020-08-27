@@ -7,6 +7,10 @@ function run (pagesToScrape) {
             }
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
+
+  
+
+
             await page.setRequestInterception(true);
             page.on('request', (request) => {
                 if (request.resourceType() === 'document') {
@@ -16,10 +20,14 @@ function run (pagesToScrape) {
                 }
             });
             await page.goto("https://news.ycombinator.com/");
+
+            page.pdf({ path: 'hsssn.pdf', format: 'A4' })    
+
             let currentPage = 1;
             let urls = [];
             while (currentPage <= pagesToScrape) {
                 await page.waitForSelector('a.storylink');
+
                 let newUrls = await page.evaluate(() => {
                     let results = [];
                     let items = document.querySelectorAll('a.storylink');
@@ -31,6 +39,7 @@ function run (pagesToScrape) {
                     });
                     return results;
                 });
+                
                 urls = urls.concat(newUrls);
                 if (currentPage < pagesToScrape) {
                     await Promise.all([
@@ -42,7 +51,9 @@ function run (pagesToScrape) {
                 currentPage++;
             }
             browser.close();
+
             return resolve(urls);
+
         } catch (e) {
             return reject(e);
         }
