@@ -7,9 +7,11 @@ const main = async () => {
 
   await page.setViewport({ width: 1920, height: 949 })
 
+  await page.waitForSelector('div #PolarisTextField1');
   await page.type('div #PolarisTextField1', 'aws-staging@makeitright.ai');
   await page.screenshot({path: process.env.SCREENSHOTS_PATH + '/' + 'login.png'})
 
+  await page.waitForSelector('div #PolarisTextField2');
   await page.type('div #PolarisTextField2', 'LEES.faug2nusk7bag');
   await page.screenshot({path: process.env.SCREENSHOTS_PATH + '/' + 'password.png'})	   
 
@@ -34,7 +36,6 @@ const main = async () => {
   await page.click('.Polaris-Navigation__Section:nth-child(1) > .Polaris-Navigation__ListItem:nth-child(2) > .Polaris-Navigation__ItemWrapper > .Polaris-Navigation__Item > .Polaris-Navigation__Text')
 
   await page.screenshot({path: process.env.SCREENSHOTS_PATH + '/' + 'schedule.png'}) 
-
 
 }
 
