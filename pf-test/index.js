@@ -1,7 +1,6 @@
 module.exports = async function (browser, inputParameters) {
 
 (async () => {
-  const browser = await puppeteer.launch()
 
   await page.goto('https://staging.powerfarm.ai/signin');
 
