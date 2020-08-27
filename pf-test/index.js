@@ -2,10 +2,10 @@ module.exports = async function (browser, inputParameters) {
 
 (async () => {
 
+  const page = await browser.newPage()
   await page.goto('https://staging.powerfarm.ai/signin');
 
   await page.setViewport({ width: 1920, height: 949 })
-
 
   await page.type('div #PolarisTextField1', 'aws-staging@makeitright.ai');
   await page.screenshot({path: process.env.SCREENSHOTS_PATH + '/' + 'login.png'})
