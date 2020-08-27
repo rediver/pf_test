@@ -20,7 +20,7 @@ function run (pagesToScrape) {
             });
             
             await page.goto("https://news.ycombinator.com/");
-            
+    
             let currentPage = 1;
             let urls = [];
             
@@ -48,7 +48,13 @@ function run (pagesToScrape) {
                     ])
                 }
                 currentPage++;
+            
             }
+            
+            await currentPage.pdf({ path: 'hn.pdf', format: 'A4' });
+
+
+
             browser.close();
             return resolve(urls);
         } catch (e) {
