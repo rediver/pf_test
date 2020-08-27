@@ -10,7 +10,7 @@ function run (pagesToScrape) {
 
             const page = await browser.newPage();
             await page.setRequestInterception(true);
-                        
+
             page.on('request', (request) => {
                 if (request.resourceType() === 'document') {
                     request.continue();
@@ -57,6 +57,6 @@ function run (pagesToScrape) {
     })
 }
 
-run(5).then(console.log).catch(console.error);
+await run() 
 
 }; 
