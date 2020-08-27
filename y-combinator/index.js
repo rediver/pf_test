@@ -1,16 +1,13 @@
-module.exports = async function (browser, inputParameters) {
-
+const puppeteer = require('puppeteer');
 function run (pagesToScrape) {
     return new Promise(async (resolve, reject) => {
-        
         try {
             if (!pagesToScrape) {
                 pagesToScrape = 1;
             }
-
+            const browser = await puppeteer.launch();
             const page = await browser.newPage();
             await page.setRequestInterception(true);
-
             page.on('request', (request) => {
                 if (request.resourceType() === 'document') {
                     request.continue();
@@ -18,14 +15,10 @@ function run (pagesToScrape) {
                     request.abort();
                 }
             });
-            
             await page.goto("https://news.ycombinator.com/");
-    
             let currentPage = 1;
             let urls = [];
-            
             while (currentPage <= pagesToScrape) {
-                
                 await page.waitForSelector('a.storylink');
                 let newUrls = await page.evaluate(() => {
                     let results = [];
@@ -38,7 +31,6 @@ function run (pagesToScrape) {
                     });
                     return results;
                 });
-
                 urls = urls.concat(newUrls);
                 if (currentPage < pagesToScrape) {
                     await Promise.all([
@@ -48,13 +40,7 @@ function run (pagesToScrape) {
                     ])
                 }
                 currentPage++;
-            
             }
-            
-            await currentPage.pdf({ path: 'hn.pdf', format: 'A4' });
-
-
-
             browser.close();
             return resolve(urls);
         } catch (e) {
@@ -62,7 +48,4 @@ function run (pagesToScrape) {
         }
     })
 }
-
-await run() 
-
-}; 
+run(5).then(console.log).catch(console.error);
